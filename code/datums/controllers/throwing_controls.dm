@@ -25,6 +25,7 @@
 	var/speed_error = 0
 	var/throw_type
 	var/stops_on_mob_hit = TRUE
+	var/stops_on_object_hit = FALSE
 
 	New(atom/movable/thing, atom/target, error, speed, dx, dy, dist_x, dist_y, range,
 			target_x, target_y, matrix/transform_original, list/params, turf/thrown_from, mob/thrown_by, atom/return_target,
@@ -107,6 +108,8 @@ var/global/datum/controller/throwing/throwing_controller = new
 				break
 			thing.glide_size = (32 / (1/thr.speed)) * world.tick_lag
 			if (!thing.Move(next))  // Grayshift: Race condition fix. bump proc calls are delayed past the end of the loop and won't trigger end condition
+				if(!is_blocked_turf(next) && !thr.stops_on_object_hit) // hitting an object for it to then break (like windows), shouldn't stop the throw.
+					continue
 				thr.hitAThing = TRUE // of !throwing on their own, so manually checking if Move failed as end condition
 				end_throwing = TRUE
 				break

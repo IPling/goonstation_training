@@ -444,6 +444,7 @@ ADMIN_INTERACT_PROCS(/obj/machinery/vending, proc/throw_item, proc/admin_command
 			var/mob/living/dude = thr.thrown_by
 			var/datum/gang/gang = dude.get_gang()
 			gang?.do_vandalism(GANG_VANDALISM_VENDOR_KO, src.loc)
+		thr.stops_on_object_hit = TRUE
 		src.fall(M)
 		return
 
