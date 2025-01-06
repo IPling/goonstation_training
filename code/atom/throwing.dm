@@ -81,10 +81,12 @@
 		for(var/datum/thrown_thing/thr as anything in global.throwing_controller.throws_of_atom(src))
 			src.throw_impact(O, thr)
 			found_any = TRUE
+			if (O.disposed)
+				thr.hitThingBroke = TRUE
 			break // I'd like this to process all relevant datums but something is duplicating throws so it actually sometimes causes a ton of lag
 		if(!found_any)
 			src.throw_impact(O)
-		src.throwing = 0
+		src.throwing = FALSE
 	..()
 
 /atom/movable/proc/throw_at(atom/target, range, speed, list/params, turf/thrown_from, mob/thrown_by, throw_type = 1,
