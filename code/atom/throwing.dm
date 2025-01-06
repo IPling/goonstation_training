@@ -20,8 +20,6 @@
 				src.throw_impact(A, thr)
 				if (thr.stops_on_mob_hit)
 					. = TRUE
-			// **TODO: Better behaviour for windows
-			// which are dense, but shouldn't always stop movement
 			if(isobj(A))
 				if(!A.Cross(src))
 					src.throw_impact(A, thr)
